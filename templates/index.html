@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Camera Capture Demo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <h1>Camera Capture</h1>
+  <div class="container">
+    <!-- Column 1 -->
+    <div class="cam-col" id="col-1">
+      <div class="controls">
+        <label>IP/URL Camera 1</label>
+        <input type="text" id="src-1" placeholder="rtsp://..., http://..., /dev/video0" />
+        <button onclick="setSource(1)">Connect</button>
+        <button onclick="stopSource(1)" class="stop">Stop</button>
+      </div>
+
+      <div class="video-box">
+        <img id="video-1" src="" alt="camera1 stream"/>
+        <button class="capture-btn" aria-label="Capture" onclick="capture(1)">&#128247;</button>
+      </div>
+
+      <div class="image-box">
+        <h3>Captured Image</h3>
+        <img id="captured-1" src="" alt="captured" />
+      </div>
+
+      <div class="fragment-box">
+        <h3>Fragment (processed)</h3>
+        <img id="fragment-1" src="" alt="fragment" />
+      </div>
+    </div>
+
+    <!-- Column 2 -->
+    <div class="cam-col" id="col-2">
+      <div class="controls">
+        <label>IP/URL Camera 2</label>
+        <input type="text" id="src-2" placeholder="rtsp://..., http://..., /dev/video1" />
+        <button onclick="setSource(2)">Connect</button>
+        <button onclick="stopSource(2)" class="stop">Stop</button>
+      </div>
+
+      <div class="video-box">
+        <img id="video-2" src="" alt="camera2 stream"/>
+        <button class="capture-btn" aria-label="Capture" onclick="capture(2)">&#128247;</button>
+      </div>
+
+      <div class="image-box">
+        <h3>Captured Image</h3>
+        <img id="captured-2" src="" alt="captured" />
+      </div>
+
+      <div class="fragment-box">
+        <h3>Fragment (processed)</h3>
+        <img id="fragment-2" src="" alt="fragment" />
+      </div>
+    </div>
+  </div>
+
+  <script src="/static/main.js"></script>
+</body>
+</html>
