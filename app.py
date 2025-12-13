@@ -4,6 +4,7 @@ import threading
 import time
 import base64
 import numpy as np
+from process import ImageProcessor
 
 app = Flask(__name__)
 
@@ -183,16 +184,9 @@ def process_image_placeholder(bgr_img):
     - crop a center square at 50% of min(height,width)
     Replace this with your real processing.
     """
-    h, w = bgr_img.shape[:2]
-    side = int(min(h, w) * 0.5)
-    cx, cy = w // 2, h // 2
-    x0 = max(0, cx - side // 2)
-    y0 = max(0, cy - side // 2)
-    crop = bgr_img[y0:y0+side, x0:x0+side].copy()
-    # for demo: draw a red rectangle around crop in original (optional)
-    # cv2.rectangle(bgr_img, (x0,y0), (x0+side-1, y0+side-1), (0,0,255), 2)
-    # return cropped image resized to 256x256
-    return cv2.resize(crop, (256, 256))
+    print("Processing image placeholder...")
+    processFrame = ImageProcessor(bgr_img).process_frame(bgr_img)
+    return processFrame
 
 if __name__ == '__main__':
     # debug mode off in production
