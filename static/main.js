@@ -52,6 +52,11 @@ async function capture(cam_id){
     // set captured and processed images
     document.getElementById(`captured-${cam_id}`).src = j.image;
     document.getElementById(`fragment-${cam_id}`).src = j.processed;
+
+    const timeBox = document.getElementById(`proc-time-${cam_id}`);
+    if(timeBox && typeof j.process_time_ms === 'number'){
+      timeBox.textContent = `Process time: ${j.process_time_ms.toFixed(2)} ms`;
+    }
   }catch(err){
     alert("Error: " + err);
   }finally{
