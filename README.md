@@ -93,8 +93,8 @@ Sinh viên cần hoàn thiện các phương thức trong `process.py` theo từ
 ### Connect Camera
 
 1. Nhập IP/URL camera vào ô input:
-   - RTSP: `rtsp://username:password@ip:port/stream`
-   - HTTP: `http://ip:port/video`
+   - RTSP: `rtsp://username:password@ip:port/Streaming/Channels/101`
+   - HTTP: `http://ip:port/path{videofeed}`
    - USB: `0` (camera mặc định) hoặc `/dev/video0`
 
 2. Bấm **Connect**

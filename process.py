@@ -1,6 +1,7 @@
 import time
 import cv2
 import numpy as np
+import os
 
 
 class ImageProcessor:
@@ -41,10 +42,27 @@ class ImageProcessor:
         # 3. Trả về True nếu thành công, False nếu thất bại
         pass
     
-    # =============================================================================
-    # STEP 2: IMAGE PREPROCESSING (Week 3)
-    # Topic: Image Operations (Edge Detection, Convolution)
-    # =============================================================================
+        try:
+            # 1. Kiểm tra ảnh đầu vào có hợp lệ không
+            if bgr_img is None or not isinstance(bgr_img, np.ndarray):
+                return False
+
+            # 2. Tạo thư mục CapturedImage nếu chưa tồn tại
+            save_dir = "CapturedImage"
+            if not os.path.exists(save_dir):
+                os.makedirs(save_dir)
+
+            # Ghép đường dẫn lưu ảnh
+            save_path = os.path.join(save_dir, filename)
+
+            # 3. Lưu ảnh
+            success = cv2.imwrite(save_path, bgr_img)
+
+            return success
+
+        except Exception as e:
+            print("Error saving image:", e)
+            return False
     
     def convert_to_grayscale(self, bgr_img):
         """
@@ -59,6 +77,14 @@ class ImageProcessor:
         # TODO: Implement grayscale conversion
         # Sinh viên cần: Sử dụng cv2.cvtColor để chuyển sang grayscale
         pass
+    
+        if bgr_img is None:
+            return None
+
+        # Chuyển ảnh từ BGR sang Grayscale
+        gray_img = cv2.cvtColor(bgr_img, cv2.COLOR_BGR2GRAY)
+        return gray_img
+    
     
     def apply_gaussian_filter(self, img, kernel_size=(5, 5), sigma=1.0):
         """
@@ -76,6 +102,17 @@ class ImageProcessor:
         # Sinh viên cần: Sử dụng cv2.GaussianBlur
         pass
     
+        if img is None:
+            return None
+
+        # Áp dụng Gaussian Blur
+        filtered_img = cv2.GaussianBlur(img, kernel_size, sigma)
+        return filtered_img
+    # =============================================================================
+    # STEP 2: IMAGE PREPROCESSING (Week 3)
+    # Topic: Image Operations (Edge Detection, Convolution)
+    # =============================================================================
+
     def detect_edges_canny(self, img, threshold1=50, threshold2=150):
         """
         Detect edges using Canny edge detector
@@ -539,7 +576,7 @@ class ImageProcessor:
     # Topic: All Course Concepts
     # =============================================================================
     
-    def process_frame(self, bgr_img, step='all'):
+    def process_frame(self, bgr_img):
         """
         Complete processing pipeline - integrates all steps
         
@@ -565,15 +602,15 @@ class ImageProcessor:
         # 2. Lưu kết quả vào results dict
         # 3. Visualize kết quả lên processed_img
         # 4. Trả về (processed_img, results, process_time_ms)
-        
-        # Example placeholder: crop center square
-        h, w = bgr_img.shape[:2]
-        side = int(min(h, w) * 0.5)
-        cx, cy = w // 2, h // 2
-        x0 = max(0, cx - side // 2)
-        y0 = max(0, cy - side // 2)
-        crop = bgr_img[y0:y0+side, x0:x0+side].copy()
-        processed_img = cv2.resize(crop, (256, 256))
+        step1_image = self.capture_and_save_image(bgr_img, "test_capture.jpg")
+        if step1_image:
+            img = cv2.imread("CapturedImage/test_capture.jpg")
+        if img is None:
+            print("Read image failed")
+            return None
+
+        gray = self.convert_to_grayscale(img) 
+        processed_img = self.apply_gaussian_filter(gray)
         
         process_time_ms = (time.perf_counter() - start_time) * 1000
         

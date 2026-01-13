@@ -105,7 +105,7 @@ def capture():
     # Process image using ImageProcessor
     try:
         processor = ImageProcessor()
-        processed, results, process_time_ms = processor.process_frame(frame, step=step)
+        processed, results, process_time_ms = processor.process_frame(frame)
         
         # Convert processed image to base64
         ret2, jpg2 = cv2.imencode('.jpg', processed, [int(cv2.IMWRITE_JPEG_QUALITY), 90])
@@ -121,7 +121,7 @@ def capture():
             'processed': processed_uri, 
             'process_time_ms': round(process_time_ms, 2),
             'results': results,  # Additional processing results
-            'step': step
+            'step': "all"
         })
     except Exception as e:
         return jsonify({'ok': False, 'error': f'Processing failed: {str(e)}'}), 500
