@@ -67,17 +67,34 @@ def set_source():
 
 @app.route('/capture', methods=['POST'])
 def capture():
-    # payload: { cam_id: int }
+    """
+    Capture image from camera and process it
+    
+    Payload: { cam_id: int, step: str (optional) }
+    
+    Step options:
+        - 'preprocess': Step 2 - Grayscale, Gaussian, Edge Detection
+        - 'segment': Step 3 - Color segmentation, Morphology
+        - 'calibrate': Step 4 - Calibration and perspective correction
+        - 'roi': Step 5 - Feature detection and ROI extraction
+        - 'motion': Step 6 - Motion detection
+        - 'track': Step 7 - Object tracking
+        - 'license_plate': Steps 8-9 - License plate detection & OCR
+        - 'all': Complete pipeline (default)
+    """
     data = request.get_json()
     cam_id = int(data.get('cam_id'))
+    step = data.get('step', 'all')  # Default to 'all' if not specified
+    
     if cam_id not in cameras:
         return jsonify({'ok': False, 'error': 'invalid cam_id'}), 400
+    
     cam = cameras[cam_id]
     frame = cam.get_frame_bgr()
     if frame is None:
         return jsonify({'ok': False, 'error': 'no frame yet'}), 400
 
-    # Convert BGR -> JPEG base64 for immediate display
+    # Convert BGR -> JPEG base64 for immediate display (original image)
     ret, jpg = cv2.imencode('.jpg', frame, [int(cv2.IMWRITE_JPEG_QUALITY), 90])
     if not ret:
         return jsonify({'ok': False, 'error': 'encode_failed'}), 500
@@ -85,25 +102,29 @@ def capture():
     b64 = base64.b64encode(raw).decode('utf-8')
     data_uri = 'data:image/jpeg;base64,' + b64
 
-    # Placeholder processing function: crop center square (you can replace)
-    processed, process_time_ms = process_image_placeholder(frame)
-
-    ret2, jpg2 = cv2.imencode('.jpg', processed, [int(cv2.IMWRITE_JPEG_QUALITY), 90])
-    raw2 = jpg2.tobytes()
-    b642 = base64.b64encode(raw2).decode('utf-8')
-    processed_uri = 'data:image/jpeg;base64,' + b642
-
-    return jsonify({'ok': True, 'image': data_uri, 'processed': processed_uri, 'process_time_ms': round(process_time_ms, 2)})
-
-def process_image_placeholder(bgr_img):
-    """
-    Placeholder image processing:
-    - crop a center square at 50% of min(height,width)
-    Replace this with your real processing.
-    """
-    print("Processing image placeholder...")
-    processed_frame, process_time_ms = ImageProcessor(bgr_img).process_frame(bgr_img)
-    return processed_frame, process_time_ms
+    # Process image using ImageProcessor
+    try:
+        processor = ImageProcessor()
+        processed, results, process_time_ms = processor.process_frame(frame, step=step)
+        
+        # Convert processed image to base64
+        ret2, jpg2 = cv2.imencode('.jpg', processed, [int(cv2.IMWRITE_JPEG_QUALITY), 90])
+        if not ret2:
+            return jsonify({'ok': False, 'error': 'processed_encode_failed'}), 500
+        raw2 = jpg2.tobytes()
+        b642 = base64.b64encode(raw2).decode('utf-8')
+        processed_uri = 'data:image/jpeg;base64,' + b642
+        
+        return jsonify({
+            'ok': True, 
+            'image': data_uri, 
+            'processed': processed_uri, 
+            'process_time_ms': round(process_time_ms, 2),
+            'results': results,  # Additional processing results
+            'step': step
+        })
+    except Exception as e:
+        return jsonify({'ok': False, 'error': f'Processing failed: {str(e)}'}), 500
 
 if __name__ == '__main__':
     # debug mode off in production

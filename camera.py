@@ -83,9 +83,3 @@ class VideoCamera:
     def get_frame_bgr(self):
         with self.lock:
             return None if self.frame is None else self.frame.copy()
-
-# initialize two camera handlers (two columns)
-cameras = {
-    1: VideoCamera(),
-    2: VideoCamera()
-}
