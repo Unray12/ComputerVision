@@ -602,18 +602,21 @@ class ImageProcessor:
         # 2. Lưu kết quả vào results dict
         # 3. Visualize kết quả lên processed_img
         # 4. Trả về (processed_img, results, process_time_ms)
-        step1_image = self.capture_and_save_image(bgr_img, "test_capture.jpg")
+        
+        ###################### WRITE YOUR PROCESS PIPELINE HERE #########################
+        step1_image = self.capture_and_save_image(bgr_img, "test_capture.jpg") ## Step 1: Capture and Save Image
         if step1_image:
             img = cv2.imread("CapturedImage/test_capture.jpg")
         if img is None:
             print("Read image failed")
             return None
 
-        gray = self.convert_to_grayscale(img) 
-        processed_img = self.apply_gaussian_filter(gray)
+        gray = self.convert_to_grayscale(img)  ## Step 2: Convert to Grayscale
+        processed_img = self.apply_gaussian_filter(gray) ## Step 3: Apply Gaussian Filter
+        
+        #################################################################################
         
         process_time_ms = (time.perf_counter() - start_time) * 1000
-        
         return processed_img, results, process_time_ms
     
     def visualize_results(self, bgr_img, results):
