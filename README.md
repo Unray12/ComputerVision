@@ -1,15 +1,15 @@
 # Computer Vision Camera Project
 
-Hệ thống camera giám sát bãi đỗ xe với xử lý ảnh và nhận dạng biển số xe.
+Parking lot surveillance camera system with image processing and license plate recognition.
 
-## 📋 Yêu cầu hệ thống
+## 📋 System Requirements
 
 - Python 3.8+
 - OpenCV 4.x
 - Flask
-- Camera (RTSP/HTTP/USB) hoặc video files để test
+- Camera (RTSP/HTTP/USB) or video files for testing
 
-## 🚀 Cài đặt
+## 🚀 Installation
 
 ### 1. Clone/Download project
 
@@ -17,17 +17,31 @@ Hệ thống camera giám sát bãi đỗ xe với xử lý ảnh và nhận d�
 cd ComputerVisionCamera
 ```
 
-### 2. Cài đặt dependencies
+### 2. Create Virtual Environment
+
+**Windows:**
+```bash
+python -m venv venv
+venv\Scripts\activate
+```
+
+**Linux/Mac:**
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+
+### 3. Install dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 3. (Tùy chọn) Cài đặt Tesseract OCR cho nhận dạng biển số
+### 4. (Optional) Install Tesseract OCR for license plate recognition
 
 **Windows:**
-- Download từ: https://github.com/UB-Mannheim/tesseract/wiki
-- Install và thêm vào PATH
+- Download from: https://github.com/UB-Mannheim/tesseract/wiki
+- Install and add to PATH
 
 **Linux:**
 ```bash
@@ -39,22 +53,22 @@ sudo apt-get install tesseract-ocr
 brew install tesseract
 ```
 
-## 🎯 Chạy ứng dụng
+## 🎯 Run Application
 
 ```bash
 python app.py
 ```
 
-Mở browser: **http://localhost:5000**
+Open browser: **http://localhost:5000**
 
-## 📁 Cấu trúc project
+## 📁 Project Structure
 
 ```
 ComputerVisionCamera/
 │
 ├── app.py                  # Flask web server
 ├── camera.py               # Video camera handler (threading)
-├── process.py              # Image processing class ⭐ (SINH VIÊN HOÀN THIỆN)
+├── process.py              # Image processing class ⭐ (STUDENTS IMPLEMENT)
 │
 ├── templates/
 │   └── index.html          # Web interface
@@ -63,20 +77,20 @@ ComputerVisionCamera/
 │   ├── main.js             # Frontend JavaScript
 │   └── style.css           # Styling
 │
-├── CapturedImage/          # Thư mục lưu ảnh capture
+├── CapturedImage/          # Folder for captured images
 │
-├── ProjectProgress.txt     # Yêu cầu từng tuần
-├── STUDENT_GUIDE.md        # Hướng dẫn chi tiết cho sinh viên ⭐
-└── README.md               # File này
+├── ProjectProgress.txt     # Weekly requirements
+├── STUDENT_GUIDE.md        # Detailed student guide ⭐
+└── README.md               # This file
 ```
 
-## 🎓 Hướng dẫn cho sinh viên
+## 🎓 Student Guide
 
-**Xem file [STUDENT_GUIDE.md](STUDENT_GUIDE.md) để biết chi tiết!**
+**See [STUDENT_GUIDE.md](STUDENT_GUIDE.md) for detailed instructions!**
 
-### Tóm tắt nhiệm vụ:
+### Task Summary:
 
-Sinh viên cần hoàn thiện các phương thức trong `process.py` theo từng bước:
+Students need to complete the methods in `process.py` according to each step:
 
 1. **Week 1-2:** Basic Image Capture
 2. **Week 3:** Image Preprocessing (Grayscale, Gaussian, Canny)
@@ -88,47 +102,47 @@ Sinh viên cần hoàn thiện các phương thức trong `process.py` theo từ
 8. **Week 13-14:** License Plate Detection & OCR
 9. **Week 14:** System Integration
 
-## 🖥️ Sử dụng
+## 🖥️ Usage
 
 ### Connect Camera
 
-1. Nhập IP/URL camera vào ô input:
+1. Enter camera IP/URL in the input field:
    - RTSP: `rtsp://username:password@ip:port/Streaming/Channels/101`
    - HTTP: `http://ip:port/path{videofeed}`
-   - USB: `0` (camera mặc định) hoặc `/dev/video0`
+   - USB: `0` (default camera) or `/dev/video0`
 
-2. Bấm **Connect**
+2. Click **Connect**
 
-3. Stream video sẽ hiển thị
+3. Video stream will display
 
 ### Capture & Process
 
-1. Bấm nút 📷 (camera icon) trên video stream
+1. Click the 📷 (camera icon) on the video stream
 
-2. Ảnh gốc hiển thị trong **Captured Image**
+2. Original image displays in **Captured Image**
 
-3. Ảnh đã xử lý hiển thị trong **Fragment (processed)**
+3. Processed image displays in **Fragment (processed)**
 
-4. Thời gian xử lý hiển thị bên dưới
+4. Processing time displays below
 
-### Test từng Step
+### Test Individual Steps
 
-Có thể modify code để test từng bước:
+You can modify the code to test individual steps:
 
 ```python
-# Trong app.py, route /capture
-# Thay đổi step parameter:
+# In app.py, /capture route
+# Change step parameter:
 processor.process_frame(frame, step='preprocess')  # Test Step 2
 processor.process_frame(frame, step='segment')     # Test Step 3
 processor.process_frame(frame, step='roi')         # Test Step 5
 processor.process_frame(frame, step='license_plate')  # Test Step 8-9
 ```
 
-## 📝 Ví dụ Camera Sources
+## 📝 Example Camera Sources
 
 ### RTSP Cameras
 ```
-rtsp://admin:password@192.168.1.100:554/stream1
+rtsp://admin:password@192.168.1.100:554/Streaming/Channels/101
 rtsp://192.168.1.101/live.sdp
 ```
 
@@ -153,49 +167,49 @@ D:/Videos/parking_lot.mp4
 
 ## 🔧 Troubleshooting
 
-### Camera không connect được
+### Camera cannot connect
 
-- Kiểm tra network connectivity
+- Check network connectivity
 - Verify username/password
-- Test RTSP URL bằng VLC player trước
-- Thử với camera USB (source = 0)
+- Test RTSP URL with VLC player first
+- Try USB camera (source = 0)
 
-### Lỗi "No frame yet" khi Capture
+### "No frame yet" error when capturing
 
-- Đợi vài giây sau khi connect để camera buffer đủ frames
-- Kiểm tra camera stream có hoạt động không
+- Wait a few seconds after connecting for camera buffer to fill
+- Check if camera stream is working
 
-### Process time quá lâu
+### Process time is too long
 
-- Giảm resolution ảnh trước khi xử lý
+- Reduce image resolution before processing
 - Optimize code (vectorize operations)
-- Chỉ chạy các bước cần thiết (không chạy 'all')
+- Only run necessary steps (don't run 'all')
 
-### OCR không nhận dạng được
+### OCR not recognizing text
 
-- Cần cài đặt Tesseract OCR
-- Kiểm tra plate image có rõ ràng không
+- Must install Tesseract OCR
+- Check if plate image is clear
 - Tune preprocessing parameters (threshold, blur, etc.)
 
 ## 🎨 Customization
 
-### Thay đổi UI
+### Change UI
 
-Edit files trong `static/` và `templates/`:
+Edit files in `static/` and `templates/`:
 - `style.css` - Styling
 - `main.js` - Frontend logic
 - `index.html` - HTML structure
 
-### Thêm processing step mới
+### Add new processing step
 
-1. Thêm method vào `ImageProcessor` class trong `process.py`
-2. Gọi method trong `process_frame()` với step tương ứng
-3. Update frontend để chọn step (optional)
+1. Add method to `ImageProcessor` class in `process.py`
+2. Call method in `process_frame()` with corresponding step
+3. Update frontend to select step (optional)
 
-### Lưu kết quả
+### Save Results
 
 ```python
-# Trong process.py
+# In process.py
 def process_frame(self, bgr_img, step='all'):
     # ... processing ...
     
@@ -209,26 +223,25 @@ def process_frame(self, bgr_img, step='all'):
 
 ## 📊 Performance Tips
 
-1. **Reduce frame resolution:** Resize ảnh trước khi xử lý
-2. **Use ROI:** Chỉ xử lý vùng quan tâm
-3. **Optimize loops:** Vectorize với NumPy
-4. **Parallel processing:** Xử lý 2 cameras song song
-5. **Cache results:** Lưu calibration matrix, trained models
+1. **Reduce frame resolution:** Resize image before processing
+2. **Use ROI:** Only process region of interest
+3. **Optimize loops:** Vectorize with NumPy
+4. **Parallel processing:** Process 2 cameras in parallel
+5. **Cache results:** Save calibration matrix, trained models
 
-## 📚 Tài liệu tham khảo
+## 📚 Reference Documentation
 
 - [OpenCV Documentation](https://docs.opencv.org/)
 - [OpenCV Python Tutorials](https://docs.opencv.org/4.x/d6/d00/tutorial_py_root.html)
 - [Flask Documentation](https://flask.palletsprojects.com/)
 - [Tesseract OCR](https://github.com/tesseract-ocr/tesseract)
-- [STUDENT_GUIDE.md](STUDENT_GUIDE.md) - Hướng dẫn chi tiết
 
 ## 📧 Support
 
-Nếu có vấn đề kỹ thuật, tham khảo:
-1. File `STUDENT_GUIDE.md` để xem hướng dẫn chi tiết
-2. OpenCV documentation
-3. Stack Overflow với tag `opencv` và `python`
+If you have technical issues, refer to:
+1. OpenCV documentation
+2. Ask your friends, Stack Overflow, ChatGPT, Gemini, Copilot, etc.
+3. Contact Dr. Le Trong Nhan
 
 ## 📄 License
 
