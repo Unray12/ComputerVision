@@ -3,6 +3,8 @@ import cv2
 import numpy as np
 import os
 
+from grayscale import GrayscaleProcessor
+
 
 class ImageProcessor:
     """
@@ -589,6 +591,7 @@ class ImageProcessor:
         Returns:
             tuple: (Processed image, results dict, process time in ms)
         """
+        grayScaleProcessor = GrayscaleProcessor()
         if bgr_img is None:
             raise ValueError("Input frame is None")
         
@@ -605,15 +608,7 @@ class ImageProcessor:
         
         ###################### WRITE YOUR PROCESS PIPELINE HERE #########################
         step1_image = self.capture_and_save_image(bgr_img, "test_capture.bmp") ## Step 1: Capture and Save Image
-        if step1_image:
-            img = cv2.imread("CapturedImage/test_capture.bmp")
-        if img is None:
-            print("Read image failed")
-            return None
-
-        gray = self.convert_to_grayscale(img)  ## Step 2: Convert to Grayscale
-        processed_img = self.apply_gaussian_filter(gray) ## Step 3: Apply Gaussian Filter
-        
+        processed_img = grayScaleProcessor.convert_to_grayscale(bgr_img)  ## Step 2: Convert to Grayscale
         #################################################################################
         
         process_time_ms = (time.perf_counter() - start_time) * 1000
