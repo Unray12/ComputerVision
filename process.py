@@ -65,29 +65,8 @@ class ImageProcessor:
         except Exception as e:
             print("Error saving image:", e)
             return False
-    
-    def apply_gaussian_filter(self, img, kernel_size=(5, 5), sigma=1.0):
-        """
-        Apply Gaussian filtering to reduce noise
-        
-        Args:
-            img: Input image
-            kernel_size: Size of Gaussian kernel (must be odd)
-            sigma: Standard deviation
-            
-        Returns:
-            Filtered image
-        """
-        # TODO: Implement Gaussian filtering
-        # Sinh viên cần: Sử dụng cv2.GaussianBlur
-        pass
-    
-        if img is None:
-            return None
 
-        # Áp dụng Gaussian Blur
-        filtered_img = cv2.GaussianBlur(img, kernel_size, sigma)
-        return filtered_img
+    
     # =============================================================================
     # STEP 2: IMAGE PREPROCESSING (Week 3)
     # Topic: Image Operations (Edge Detection, Convolution)
