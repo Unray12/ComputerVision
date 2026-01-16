@@ -84,7 +84,7 @@ def capture():
     """
     data = request.get_json()
     cam_id = int(data.get('cam_id'))
-    step = data.get('step', 'all')  # Default to 'all' if not specified
+    # step = data.get('step', 'all')  # Default to 'all' if not specified
     
     if cam_id not in cameras:
         return jsonify({'ok': False, 'error': 'invalid cam_id'}), 400

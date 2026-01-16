@@ -81,7 +81,7 @@ class ImageProcessor:
         if bgr_img is None:
             return None
 
-        # Chuyển ảnh từ BGR sang Grayscale
+        # Chuyển ảnh từ BMP sang Grayscale
         gray_img = cv2.cvtColor(bgr_img, cv2.COLOR_BGR2GRAY)
         return gray_img
     
@@ -604,9 +604,9 @@ class ImageProcessor:
         # 4. Trả về (processed_img, results, process_time_ms)
         
         ###################### WRITE YOUR PROCESS PIPELINE HERE #########################
-        step1_image = self.capture_and_save_image(bgr_img, "test_capture.jpg") ## Step 1: Capture and Save Image
+        step1_image = self.capture_and_save_image(bgr_img, "test_capture.bmp") ## Step 1: Capture and Save Image
         if step1_image:
-            img = cv2.imread("CapturedImage/test_capture.jpg")
+            img = cv2.imread("CapturedImage/test_capture.bmp")
         if img is None:
             print("Read image failed")
             return None
