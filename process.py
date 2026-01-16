@@ -66,28 +66,6 @@ class ImageProcessor:
             print("Error saving image:", e)
             return False
     
-    def convert_to_grayscale(self, bgr_img):
-        """
-        Convert BGR image to grayscale
-        
-        Args:
-            bgr_img: Input image in BGR format
-            
-        Returns:
-            Grayscale image
-        """
-        # TODO: Implement grayscale conversion
-        # Sinh viên cần: Sử dụng cv2.cvtColor để chuyển sang grayscale
-        pass
-    
-        if bgr_img is None:
-            return None
-
-        # Chuyển ảnh từ BMP sang Grayscale
-        gray_img = cv2.cvtColor(bgr_img, cv2.COLOR_BGR2GRAY)
-        return gray_img
-    
-    
     def apply_gaussian_filter(self, img, kernel_size=(5, 5), sigma=1.0):
         """
         Apply Gaussian filtering to reduce noise
@@ -129,25 +107,6 @@ class ImageProcessor:
         """
         # TODO: Implement Canny edge detection
         # Sinh viên cần: Sử dụng cv2.Canny
-        pass
-    
-    def preprocess_image(self, bgr_img):
-        """
-        Complete preprocessing pipeline: grayscale + Gaussian + edge detection
-        
-        Args:
-            bgr_img: Input image in BGR format
-            
-        Returns:
-            dict: Dictionary containing intermediate results
-                  {'grayscale': ..., 'filtered': ..., 'edges': ...}
-        """
-        # TODO: Implement complete preprocessing pipeline
-        # Sinh viên cần: 
-        # 1. Gọi convert_to_grayscale()
-        # 2. Gọi apply_gaussian_filter()
-        # 3. Gọi detect_edges_canny()
-        # 4. Trả về dictionary chứa tất cả kết quả trung gian
         pass
     
     # =============================================================================
@@ -601,14 +560,20 @@ class ImageProcessor:
         
         # TODO: Implement complete pipeline
         # Sinh viên cần:
-        # 1. Dựa vào tham số 'step', gọi các phương thức tương ứng
+        # 1. gọi các phương thức tương ứng
         # 2. Lưu kết quả vào results dict
         # 3. Visualize kết quả lên processed_img
         # 4. Trả về (processed_img, results, process_time_ms)
         
         ###################### WRITE YOUR PROCESS PIPELINE HERE #########################
+        
+        
         step1_image = self.capture_and_save_image(bgr_img, "test_capture.bmp") ## Step 1: Capture and Save Image
+        
         processed_img = grayScaleProcessor.convert_to_grayscale(bgr_img)  ## Step 2: Convert to Grayscale
+        
+        step3_image = self.capture_and_save_image(processed_img, "processed_capture.bmp") ## Step 3: Capture and Save Processed Image
+        
         #################################################################################
         
         process_time_ms = (time.perf_counter() - start_time) * 1000
