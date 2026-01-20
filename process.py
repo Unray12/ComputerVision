@@ -3,7 +3,7 @@ import cv2
 import numpy as np
 import os
 
-from grayscale import GrayscaleProcessor
+from Filtering.Week1_grayscale import GrayscaleProcessor
 
 
 class ImageProcessor:
