@@ -2,7 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="79c7520e-d6c9-4e92-a73a-ce77fca77d68" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Filtering/Week1_captureSvaeImg.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Filtering/Week2_calibration.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Filtering/Week2_characterRecognition.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Filtering/Week2_colorSpace.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Filtering/Week2_edgeDetection.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Filtering/Week2_featureMatching.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Filtering/Week2_gaussian.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Filtering/Week2_grayscale.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Filtering/Week2_localization.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Filtering/Week2_motionDetection.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Filtering/Week2_objectTracking.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/process.py" beforeDir="false" afterPath="$PROJECT_DIR$/process.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -2,8 +2,8 @@ import time
 import cv2
 import numpy as np
 import os
-from Filtering.Week1_captureSvaeImg import CaptureSaveImgProcessor
-from Filtering.Week2_grayscale import GrayscaleProcessor
+from Week1_Capturering.Week1_captureSaveImg import CaptureSaveImgProcessor
+from Week2_Filtering.Week2_Ex1_Grayscale import GrayscaleProcessor
 
 
 class ImageProcessor:
@@ -28,41 +28,26 @@ class ImageProcessor:
     # =============================================================================
     
     def process_frame(self, bgr_img):
-        """
-        Complete processing pipeline - integrates all steps
-        
-        Args:
-            bgr_img: Input image in BGR format (numpy array)
-            step: Which processing step to apply
-                  Options: 'preprocess', 'segment', 'motion', 'track', 
-                          'license_plate', 'all'
-            
-        Returns:
-            tuple: (Processed image, results dict, process time in ms)
-        """
-        grayScaleProcessor = GrayscaleProcessor()
+
+
         if bgr_img is None:
             raise ValueError("Input frame is None")
         
         start_time = time.perf_counter()
         results = {}
         
-        # TODO: Implement complete pipeline
-        # Sinh viên cần:
-        # 1. gọi các phương thức tương ứng
-        # 2. Lưu kết quả vào results dict
-        # 3. Visualize kết quả lên processed_img
-        # 4. Trả về (processed_img, results, process_time_ms)
+
         
         ###################### WRITE YOUR PROCESS PIPELINE HERE #########################
         saveImg = CaptureSaveImgProcessor()
         
         step1_image = saveImg.capture_and_save_image(bgr_img, "test_capture.bmp") ## Step 1: Capture and Save Image
-        
-        processed_img = grayScaleProcessor.convert_to_grayscale(bgr_img)  ## Step 2: Convert to Grayscale
-        
-        step3_image = saveImg.capture_and_save_image(processed_img, "processed_capture.bmp") ## Step 3: Capture and Save Processed Image
-        
+        ######################## IMAGE FILTERING ########################################
+        ## Step 2: Convert to Grayscale
+        grayScaleProcessor = GrayscaleProcessor()
+        processed_img = grayScaleProcessor.convert_to_grayscale(bgr_img)
+        ## Save Processed Image
+        step3_image = saveImg.capture_and_save_image(processed_img, "processed_capture.bmp")
         #################################################################################
         
         process_time_ms = (time.perf_counter() - start_time) * 1000
@@ -79,10 +64,5 @@ class ImageProcessor:
         Returns:
             Annotated image
         """
-        # TODO: Implement result visualization
-        # Sinh viên cần:
-        # 1. Vẽ bounding boxes
-        # 2. Hiển thị text (biển số, tracking ID, etc.)
-        # 3. Vẽ optical flow vectors
-        # 4. Highlight detected features
+
         pass
