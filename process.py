@@ -2,8 +2,8 @@ import time
 import cv2
 import numpy as np
 import os
-
-from Filtering.Week1_grayscale import GrayscaleProcessor
+from Filtering.Week1_captureSvaeImg import CaptureSaveImgProcessor
+from Filtering.Week2_grayscale import GrayscaleProcessor
 
 
 class ImageProcessor:
@@ -20,50 +20,6 @@ class ImageProcessor:
         self.previous_frame = None  # For motion detection
         self.tracked_objects = []   # For object tracking
         pass
-
-    # =============================================================================
-    # STEP 1: BASIC IMAGE CAPTURE (Weeks 1-2)
-    # Topic: Introduction to Computer Vision, Images as Functions & Filtering
-    # =============================================================================
-    def capture_and_save_image(self, bgr_img, filename):
-        """
-        Capture and save static image from camera
-        
-        Args:
-            bgr_img: Input image in BGR format (numpy array)
-            filename: Path to save the image
-            
-        Returns:
-            bool: True if successful, False otherwise
-        """
-        # TODO: Implement image capture and saving
-        # Sinh viên cần:
-        # 1. Kiểm tra bgr_img có hợp lệ không
-        # 2. Lưu ảnh vào thư mục CapturedImage/
-        # 3. Trả về True nếu thành công, False nếu thất bại
-        pass
-    
-        try:
-            # 1. Kiểm tra ảnh đầu vào có hợp lệ không
-            if bgr_img is None or not isinstance(bgr_img, np.ndarray):
-                return False
-
-            # 2. Tạo thư mục CapturedImage nếu chưa tồn tại
-            save_dir = "CapturedImage"
-            if not os.path.exists(save_dir):
-                os.makedirs(save_dir)
-
-            # Ghép đường dẫn lưu ảnh
-            save_path = os.path.join(save_dir, filename)
-
-            # 3. Lưu ảnh
-            success = cv2.imwrite(save_path, bgr_img)
-
-            return success
-
-        except Exception as e:
-            print("Error saving image:", e)
-            return False
     
     
     # =============================================================================
@@ -99,13 +55,13 @@ class ImageProcessor:
         # 4. Trả về (processed_img, results, process_time_ms)
         
         ###################### WRITE YOUR PROCESS PIPELINE HERE #########################
+        saveImg = CaptureSaveImgProcessor()
         
-        
-        step1_image = self.capture_and_save_image(bgr_img, "test_capture.bmp") ## Step 1: Capture and Save Image
+        step1_image = saveImg.capture_and_save_image(bgr_img, "test_capture.bmp") ## Step 1: Capture and Save Image
         
         processed_img = grayScaleProcessor.convert_to_grayscale(bgr_img)  ## Step 2: Convert to Grayscale
         
-        step3_image = self.capture_and_save_image(processed_img, "processed_capture.bmp") ## Step 3: Capture and Save Processed Image
+        step3_image = saveImg.capture_and_save_image(processed_img, "processed_capture.bmp") ## Step 3: Capture and Save Processed Image
         
         #################################################################################
         
