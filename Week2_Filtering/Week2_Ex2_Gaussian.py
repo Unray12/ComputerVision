@@ -9,20 +9,6 @@ class GaussianProcessor:
     # =============================================================================
     
     def apply_gaussian_filter(self, img, kernel_size=(5, 5), sigma=1.0):
-        """
-        Apply Gaussian filtering to reduce noise
-        
-        Args:
-            img: Input image
-            kernel_size: Size of Gaussian kernel (must be odd)
-            sigma: Standard deviation
-            
-        Returns:
-            Filtered image
-        """
-        # TODO: Implement Gaussian filtering
-        # Hint: Use cv2.GaussianBlur
-
         if img is None:
             return None
 
