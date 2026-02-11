@@ -4,7 +4,7 @@ import numpy as np
 import os
 from Week1_Capturering.Week1_captureSaveImg import CaptureSaveImgProcessor
 from Week2_Filtering.Week2_Ex1_Grayscale import GrayscaleProcessor
-
+from Week2_Filtering.Week2_Ex3_Median import MedianBurProcessor
 
 class ImageProcessor:
     """
@@ -44,8 +44,11 @@ class ImageProcessor:
         step1_image = saveImg.capture_and_save_image(bgr_img, "test_capture.bmp") ## Step 1: Capture and Save Image
         ######################## IMAGE FILTERING ########################################
         ## Step 2: Convert to Grayscale
-        grayScaleProcessor = GrayscaleProcessor()
-        processed_img = grayScaleProcessor.convert_to_grayscale(bgr_img)
+        #grayScaleProcessor = GrayscaleProcessor()
+        #processed_img = grayScaleProcessor.convert_to_grayscale(bgr_img)
+
+        medianProcessor = MedianBurProcessor()
+        processed_img = medianProcessor.convert_to_blur(bgr_img)
         ## Save Processed Image
         step3_image = saveImg.capture_and_save_image(processed_img, "processed_capture.bmp")
         #################################################################################
