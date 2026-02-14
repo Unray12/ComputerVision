@@ -52,7 +52,7 @@ def average_slope_intercept(lines, img_shape):
     return lane_lines
 
 # 1. Read Image
-img = cv2.imread('lane.png')  # <-- replace with your own image path
+img = cv2.imread('frame_20260212_200107_097.jpg')  # <-- replace with your own image path
 gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 blur = cv2.GaussianBlur(gray, (5,5), 0)
 

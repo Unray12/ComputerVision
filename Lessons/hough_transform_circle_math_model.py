@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import cv2
 
-img = cv2.imread('lane.png')
+img = cv2.imread('circle.png')
 gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
 edges = cv2.Canny(gray, 100, 200)
@@ -36,12 +36,13 @@ for idx in range(len(x_idxs)):
 
 # Tìm các giá trị lớn nhất trong bộ tích lũy (có thể threshold hoặc tìm local maximum)
 threshold = np.amax(accumulator) * 0.5   # ví dụ: lấy 50% giá trị lớn nhất
-circles = np.argwhere(accumulator > threshold)  # (b, a, r_idx)
+circles = np.argwhere(accumulator > 100)  # (b, a, r_idx)
 
 # Vẽ các đường tròn phát hiện được lên ảnh gốc
 output_img = img.copy()
 for b, a, r_idx in circles:
     cv2.circle(output_img, (a, b), radii[r_idx], (0, 255, 0), 2)
+    print("there is a circle")
 
 plt.figure(figsize=(10, 10))
 plt.imshow(cv2.cvtColor(output_img, cv2.COLOR_BGR2RGB))

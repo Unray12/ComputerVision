@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 import matplotlib.pyplot as plt
 
-img = cv2.imread('test.jpg', 0)
+img = cv2.imread('frame_20260212_200057_045.jpg', 0)
 edges = cv2.Canny(img, 100, 150)
 
 lines = cv2.HoughLines(edges, 1, np.pi/180, threshold=100)
